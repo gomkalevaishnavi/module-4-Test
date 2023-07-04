@@ -1,23 +1,27 @@
-import logo from './logo.svg';
-import './App.css';
+import { Routes,Route } from "react-router-dom";
+import Home from "./Pages/Home";
+import ItemDetail from "./Pages/Item";
+import "./style.css"
+import { fetchItems } from "./Redux/actions/actionCreate";
+import { useDispatch } from "react-redux";
+import {useEffect} from "react";
 
 function App() {
+
+  const dispatch = useDispatch();
+
+  useEffect(() => {
+    dispatch(fetchItems());
+  }, [dispatch]);
+
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+    <div>
+      <h2 style={{marginLeft:"20px"}}>Social Media App</h2>
+      <hr></hr>
+      <Routes>
+        <Route path="/" element={<Home/>}></Route>
+        <Route path="/item/:id" element={<ItemDetail/>}></Route>
+      </Routes>
     </div>
   );
 }
